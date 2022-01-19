@@ -1,8 +1,9 @@
 import { Component } from "react";
 import { fetchImages } from "../../Services/Api";
-import { ImageGallerySection } from "../ImageGallerySection.jsx/ImageGallerySection";
+import { ImageGalleryList } from "../ImageGalleryList/ImageGalleryList";
 import { Button } from "../Button/Button";
 import "./ImageGallery.css";
+import { Loader } from "../Loader/Loader";
 
 const Status = {
   IDLE: "idle",
@@ -75,7 +76,12 @@ export class ImageGallery extends Component {
     }
 
     if (status === Status.PENDING) {
-      return <ImageGallerySection images={images} />;
+      return (
+        <>
+          <ImageGalleryList images={images} />
+          <Loader />
+        </>
+      );
     }
 
     if (status === Status.REJECTED) {
@@ -87,11 +93,16 @@ export class ImageGallery extends Component {
     if (status === Status.RESOLVED) {
       return (
         <>
-          <ImageGallerySection images={images} />
+          <ImageGalleryList images={images} />
           {currentHitsPerPage < ITEMS_PER_PAGE ? (
             <p className="Message">End of search results</p>
           ) : (
-            <Button onClick={onClick} />
+            <Button
+              onClick={() => {
+                this.setState({ status: Status.PENDING });
+                onClick();
+              }}
+            />
           )}
         </>
       );
