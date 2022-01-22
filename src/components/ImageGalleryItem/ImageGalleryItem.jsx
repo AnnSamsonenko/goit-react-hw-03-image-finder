@@ -1,4 +1,5 @@
 import "./ImageGalleryItem.css";
+import propTypes from "prop-types";
 
 export const ImageGalleryItem = ({ largeImage, tags, preview }) => {
   return (
@@ -8,4 +9,10 @@ export const ImageGalleryItem = ({ largeImage, tags, preview }) => {
       </a>
     </li>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  largeImage: propTypes.string.isRequired,
+  tags: propTypes.string.isRequired,
+  preview: propTypes.string.isRequired,
 };

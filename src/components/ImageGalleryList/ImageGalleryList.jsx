@@ -1,6 +1,7 @@
 import "./ImageGalleryList.css";
 import { ImageGalleryItem } from "../ImageGalleryItem/ImageGalleryItem";
 import { SRLWrapper } from "simple-react-lightbox";
+import propTypes from "prop-types";
 
 const options = {
   settings: {
@@ -45,4 +46,15 @@ export const ImageGalleryList = ({ images }) => {
       </ul>
     </SRLWrapper>
   );
+};
+
+ImageGalleryList.propTypes = {
+  images: propTypes.arrayOf(
+    propTypes.shape({
+      id: propTypes.number.isRequired,
+      largeImageURL: propTypes.string.isRequired,
+      webformatURL: propTypes.string.isRequired,
+      tags: propTypes.string.isRequired,
+    })
+  ).isRequired,
 };
